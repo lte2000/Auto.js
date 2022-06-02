@@ -24,6 +24,12 @@ android {
         versionName versions.appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        // https://github.com/androidannotations/androidannotations/wiki/Building-Project-Gradle
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["resourcePackageName": android.defaultConfig.applicationId]
+            }
+        }
     }
     buildTypes {
         debug {
@@ -76,10 +82,13 @@ android {
     }
     productFlavors {
         common {
+            applicationId "org.js.auto"
             buildConfigField "String", "CHANNEL", '"common"'
+            manifestPlaceholders = [appName: "js.Auto"]
         }
         coolapk {
             buildConfigField "String", "CHANNEL", '"coolapk"'
+            manifestPlaceholders = [appName: "@string/app_name"]
         }
     }
 
